@@ -2,23 +2,13 @@ package Classi;
 
 public class Camion 
 {
-    private int idCamion;
     private String marca;
     private String targa;
     
 
-    public Camion(int idCamion, String marca, String targa) {
-        this.idCamion = idCamion;
+    public Camion(String marca, String targa) {
         this.marca = marca;
         this.targa = targa;
-    }
-
-    public int getIdCamion() {
-        return idCamion;
-    }
-
-    public void setIdCamion(int idCamion) {
-        this.idCamion = idCamion;
     }
 
     public String getMarca() {

@@ -5,15 +5,13 @@ public class Fornitore {
     private String nome;
     private String cognome;
     private String telefono;
-    private String password;
     private String nomeAzienda;
 
-    public Fornitore(int idFornitore, String nome, String cognome, String telefono, String password, String nomeAzienda) {
+    public Fornitore(int idFornitore, String nome, String cognome, String telefono, String nomeAzienda) {
         this.idFornitore = idFornitore;
         this.nome = nome;
         this.cognome = cognome;
         this.telefono = telefono;
-        this.password = password;
         this.nomeAzienda = nomeAzienda;
     }
 
@@ -47,14 +45,6 @@ public class Fornitore {
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 
     public String getNomeAzienda() {
