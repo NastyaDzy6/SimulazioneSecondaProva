@@ -8,17 +8,28 @@ public class Merce
     private double volume;
     private String condizioniConservazione;
     private Polizza polizza;
+    private int idFornitore;
+
 
     public Merce() {
     }
 
-    public Merce(int idMerce, String tipologia, double peso, double volume, String condizioniConservazione, Polizza polizza) {
+    public Merce(int idMerce, String tipologia, double peso, double volume, String condizioniConservazione, Polizza polizza, int idFornitore) {
         this.idMerce = idMerce;
         this.tipologia = tipologia;
         this.peso = peso;
         this.volume = volume;
         this.condizioniConservazione = condizioniConservazione;
         this.polizza = polizza;
+        this.idFornitore = idFornitore;
+    }
+
+    public int getIdFornitore() {
+        return idFornitore;
+    }
+
+    public void setIdFornitore(int idFornitore) {
+        this.idFornitore = idFornitore;
     }
 
     public int getIdMerce() {
