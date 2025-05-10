@@ -4,7 +4,7 @@ import java.util.Date;
 public class Viaggio 
 {
     private int idViaggio;
-    private Nave nave;
+    private int idNave;
     private Date dataPartenza;
     private Date dataArribamento;
     private Porto portoPartenza;
@@ -13,9 +13,9 @@ public class Viaggio
     public Viaggio() {
     }
 
-    public Viaggio(int idViaggio, Nave nave, Date dataPartenza, Date dataArribamento, Porto portoPartenza, Porto portoArrivo) {
+    public Viaggio(int idViaggio, int nave, Date dataPartenza, Date dataArribamento, Porto portoPartenza, Porto portoArrivo) {
         this.idViaggio = idViaggio;
-        this.nave = nave;
+        this.idNave = nave;
         this.dataPartenza = dataPartenza;
         this.dataArribamento = dataArribamento;
         this.portoPartenza = portoPartenza;
@@ -30,12 +30,12 @@ public class Viaggio
         this.idViaggio = idViaggio;
     }
 
-    public Nave getNave() {
-        return nave;
+    public int getNave() {
+        return idNave;
     }
 
-    public void setNave(Nave nave) {
-        this.nave = nave;
+    public void setNave(int nave) {
+        this.idNave = nave;
     }
 
     public Date getDataPartenza() {
