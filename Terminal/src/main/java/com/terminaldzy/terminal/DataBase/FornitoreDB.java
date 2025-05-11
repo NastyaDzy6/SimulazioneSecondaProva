@@ -4,42 +4,44 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import com.terminaldzy.terminal.database;
-import com.terminaldzy.terminal.Model.Cliente;
+import com.terminaldzy.terminal.Model.Fornitore;
 
-public class ClienteDB 
-{
-    public void inserisciCliente(int idCliente, String nome, String cognome, String telefono) 
+public class FornitoreDB {
+
+    public void inserisciFornitore(int idFornitore, String nome, String cognome, String telefono, String nomeAzienda) 
     {
         try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) 
         {
-            String sql = "INSERT INTO Cliente (idCliente, nome, cognome, telefono) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Fornitore (idFornitore, nome, cognome, telefono, nomeAzienda) VALUES (?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idCliente);
+            stmt.setInt(1, idFornitore);
             stmt.setString(2, nome);
             stmt.setString(3, cognome);
             stmt.setString(4, telefono);
+            stmt.setString(5, nomeAzienda);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
-    public ArrayList<Cliente> getTuttiClienti() 
+    public ArrayList<Fornitore> getTuttiFornitori() 
     {
-        ArrayList<Cliente> lista = new ArrayList<>();
-        try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) 
-        {
-            String sql = "SELECT * FROM Cliente";
+        ArrayList<Fornitore> lista = new ArrayList<>();
+
+        try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) {
+            String sql = "SELECT * FROM Fornitore";
             Statement stmt = conn.createStatement();
             ResultSet rs = stmt.executeQuery(sql);
             while (rs.next()) {
-                Cliente c = new Cliente(
-                    rs.getInt("idCliente"),
+                Fornitore f = new Fornitore(
+                    rs.getInt("idFornitore"),
                     rs.getString("nome"),
                     rs.getString("cognome"),
-                    rs.getString("telefono")
+                    rs.getString("telefono"),
+                    rs.getString("nomeAzienda")
                 );
-                lista.add(c);
+                lista.add(f);
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -47,13 +49,13 @@ public class ClienteDB
         return lista;
     }
 
-    public void eliminaCliente(int idCliente) 
+    public void eliminaFornitore(int idFornitore) 
     {
         try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) 
         {
-            String sql = "DELETE FROM Cliente WHERE idCliente = ?";
+            String sql = "DELETE FROM Fornitore WHERE idFornitore = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idCliente);
+            stmt.setInt(1, idFornitore);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
