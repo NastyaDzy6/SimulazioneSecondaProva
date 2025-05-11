@@ -1,5 +1,6 @@
 package com.terminaldzy.terminal.DataBase;
- import java.sql.*;
+
+import java.sql.*;
 import java.util.ArrayList;
 
 import com.terminaldzy.terminal.database;
