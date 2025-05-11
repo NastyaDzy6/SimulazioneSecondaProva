@@ -1,4 +1,4 @@
-package Classi;
+package com.terminaldzy.terminal.Model;
 import java.util.Date;
 
 

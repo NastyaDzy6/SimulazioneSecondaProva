@@ -1,27 +1,28 @@
-package Classi;
+package com.terminaldzy.terminal.Model;
 
-public class Camionista {
-
-    private int idCamionista;
+public class Cliente 
+{
+    private int idCliente;
     private String nome;
     private String cognome;
     private String telefono;
-    private int idCamion;
 
-    public Camionista(int idCamionista, String nome, String cognome, String telefono, int idCamion) {
-        this.idCamionista = idCamionista;
+    public Cliente() {
+    }
+
+    public Cliente(int idCliente, String nome, String cognome, String telefono) {
+        this.idCliente = idCliente;
         this.nome = nome;
         this.cognome = cognome;
         this.telefono = telefono;
-        this.idCamion = idCamion;
     }
 
-    public int getIdCamionista() {
-        return idCamionista;
+    public int getIdCliente() {
+        return idCliente;
     }
 
-    public void setIdCamionista(int idCamionista) {
-        this.idCamionista = idCamionista;
+    public void setIdCliente(int idCliente) {
+        this.idCliente = idCliente;
     }
 
     public String getNome() {
@@ -47,13 +48,4 @@ public class Camionista {
     public void setTelefono(String telefono) {
         this.telefono = telefono;
     }
-
-    public int getIdCamion() {
-        return idCamion;
-    }
-
-    public void setIdCamion(int idCamion) {
-        this.idCamion = idCamion;
-    }
-
 }

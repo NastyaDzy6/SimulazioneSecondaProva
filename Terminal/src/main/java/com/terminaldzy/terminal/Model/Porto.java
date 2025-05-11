@@ -1,4 +1,4 @@
-package Classi;
+package com.terminaldzy.terminal.Model;
 
 public class Porto 
 {
