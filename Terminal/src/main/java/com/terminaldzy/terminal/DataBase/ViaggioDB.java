@@ -23,7 +23,7 @@ public class ViaggioDB {
         }
     }
 
-    public ArrayList<Viaggio> getTuttiIViaggi() {
+    public ArrayList<Viaggio> getTuttiViaggi() {
         ArrayList<Viaggio> lista = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) {
             String sql = "SELECT v.id_viaggio, v.id_nave, v.data_partenza, v.data_arribamento, " +
