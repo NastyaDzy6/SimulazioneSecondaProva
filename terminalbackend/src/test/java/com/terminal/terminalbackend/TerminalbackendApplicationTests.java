@@ -1,10 +1,10 @@
-package com.terminaldzy.terminal;
+package com.terminal.terminalbackend;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class TerminalApplicationTests {
+class TerminalbackendApplicationTests {
 
 	@Test
 	void contextLoads() {
