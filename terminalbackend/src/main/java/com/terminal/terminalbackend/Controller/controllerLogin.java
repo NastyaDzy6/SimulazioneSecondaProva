@@ -7,32 +7,22 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequestMapping("/login")
 public class controllerLogin {
-    
-    private final ClienteDB Cliente = new ClienteDB();
-    private final CamionistaDB Camionista = new CamionistaDB();
-    private final FornitoreDB Fornitore = new FornitoreDB();
-    private final AdminDB Admin = new AdminDB();
+    private final UtenteDB Utente = new UtenteDB();
 
     @GetMapping
     public Utente login(@RequestParam String username, @RequestParam String password) 
     {
-        int id = Cliente.verificaCredenziali(username, password);
-        if (id != -1) {
-            return new Utente(id, username, "Cliente");
-        }
-        id = Camionista.verificaCredenziali(username, password);
-        if (id != -1) {
-            return new Utente(id,  username, "Camionista");
-        }
-        id = Fornitore.verificaCredenziali(username, password);
-        if (id != -1) {
-            return new Utente(id,  username, "Fornitore");
-        }
-        id = Admin.verificaCredenziali(username, password);
-        if (id != -1) {
-            return new Utente(id,  username, "Admin");
+        String ruolo = Utente.verificaCredenziali(username, password);
+        if (ruolo.equals("Admin")) {
+            return new Utente(username, password,"Admin");
+        }else if (ruolo.equals("Camionista")){
+            return new Utente(username, password,"Camionista");
+        }else if (ruolo.equals("Fornitore")){
+            return new Utente(username, password,"Fornitore");
+        }else if (ruolo.equals("Cliente")){
+            return new Utente(username, password,"Cliente");
         }
 
-        return new Utente(-1,"null","null");
+        return new Utente("-1","-1","null");
     }
 }
