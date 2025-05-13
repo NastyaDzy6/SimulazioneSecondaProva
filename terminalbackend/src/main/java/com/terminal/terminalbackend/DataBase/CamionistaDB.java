@@ -1,10 +1,10 @@
-package com.terminaldzy.terminal.DataBase;
+package com.terminal.terminalbackend.DataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-import com.terminaldzy.terminal.database;
-import com.terminaldzy.terminal.Model.Camionista;
+import com.terminal.terminalbackend.database;
+import com.terminal.terminalbackend.Model.Camionista;
 
 public class CamionistaDB {
      public void inserisciCamionista(int idCamionista, String nome, String cognome, String telefono, int idCamion) {

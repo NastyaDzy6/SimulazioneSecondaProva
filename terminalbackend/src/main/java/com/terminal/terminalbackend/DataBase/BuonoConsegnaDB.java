@@ -1,7 +1,7 @@
-package com.terminaldzy.terminal.DataBase;
+package com.terminal.terminalbackend.DataBase;
 
 import java.sql.*;
-import com.terminaldzy.terminal.database;
+import com.terminal.terminalbackend.database;
 
 public class BuonoConsegnaDB 
 {

@@ -1,4 +1,4 @@
-package com.terminaldzy.terminal.Model;
+package com.terminal.terminalbackend.Model;
 import java.util.Date;
 
 public class Viaggio 

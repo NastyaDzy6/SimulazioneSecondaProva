@@ -1,8 +1,8 @@
-package com.terminaldzy.terminal.Controller;
+package com.terminal.terminalbackend.Controller;
 
 import org.springframework.web.bind.annotation.*;
-import com.terminaldzy.terminal.DataBase.ViaggioDB;
-import com.terminaldzy.terminal.Model.Viaggio;
+import com.terminal.terminalbackend.DataBase.ViaggioDB;
+import com.terminal.terminalbackend.Model.Viaggio;
 
 import java.sql.Date;
 import java.util.ArrayList;

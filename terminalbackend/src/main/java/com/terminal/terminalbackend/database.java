@@ -1,4 +1,4 @@
-package com.terminaldzy.terminal;
+package com.terminal.terminalbackend;
 
 public class database 
 {

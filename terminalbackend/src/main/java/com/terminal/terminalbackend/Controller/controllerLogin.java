@@ -1,7 +1,7 @@
-package com.terminaldzy.terminal.Controller;
+package com.terminal.terminalbackend.Controller;
 
-import com.terminaldzy.terminal.DataBase.*;
-import com.terminaldzy.terminal.Model.Utente;
+import com.terminal.terminalbackend.DataBase.*;
+import com.terminal.terminalbackend.Model.Utente;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

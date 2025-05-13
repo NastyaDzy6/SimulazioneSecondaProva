@@ -1,12 +1,12 @@
-package com.terminaldzy.terminal.DataBase;
+package com.terminal.terminalbackend.DataBase;
 
 import java.sql.*;
 import java.util.ArrayList;
 
-import com.terminaldzy.terminal.database;
-import com.terminaldzy.terminal.Model.Polizza;
-import com.terminaldzy.terminal.Model.Porto;
-import com.terminaldzy.terminal.Model.Viaggio;
+import com.terminal.terminalbackend.database;
+import com.terminal.terminalbackend.Model.Polizza;
+import com.terminal.terminalbackend.Model.Porto;
+import com.terminal.terminalbackend.Model.Viaggio;
 
 public class PolizzaDB {
       public void inserisciPolizza(int franchigiaGiorni, String fornitore, String destinazione, int idPortoCarico, int idViaggio) {

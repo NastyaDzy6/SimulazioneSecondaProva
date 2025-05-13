@@ -1,5 +1,4 @@
-package com.terminaldzy.terminal.Model;
-
+package com.terminal.terminalbackend.Model;
 public class Fornitore {
     private int idFornitore;
     private String nome;
