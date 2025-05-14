@@ -20,7 +20,7 @@ public class PortoDB {
         }
     }
 
-    public ArrayList<Porto> getTuttiIPorti() {
+    public ArrayList<Porto> getTuttiPorti() {
         ArrayList<Porto> lista = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) {
             String sql = "SELECT id_porto, nome, nazione, linea FROM porto";

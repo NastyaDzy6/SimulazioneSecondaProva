@@ -23,6 +23,6 @@ public class controllerLogin {
             return new Utente(username, password,"Cliente");
         }
 
-        return new Utente("-1","-1","null");
+        return new Utente("","","");
     }
 }
