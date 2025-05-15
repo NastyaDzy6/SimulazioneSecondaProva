@@ -7,6 +7,8 @@ import com.terminal.terminalbackend.Model.Viaggio;
 import java.sql.Date;
 import java.util.ArrayList;
 
+@RestController
+@RequestMapping("/gestioneViaggi")
 public class controllerAdminViaggio {
     
     private final ViaggioDB Viaggio = new ViaggioDB();

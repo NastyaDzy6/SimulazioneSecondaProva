@@ -26,4 +26,23 @@ public class UtenteDB
             return "errore";
         }
     }
+
+    public boolean inserisciUtente(String username, String password, String ruolo) {
+        try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) 
+        {
+            String sql = "INSERT INTO utente (username, password, ruolo) VALUES (?, ?, ?)";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, username);
+            stmt.setString(2, password);
+            stmt.setString(3, ruolo);
+            int rowsAffected = stmt.executeUpdate();
+
+            return rowsAffected > 0;
+        } 
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
