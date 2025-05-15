@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Viaggi Effettuati</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <link rel="stylesheet" href="css/logincss.css" />
+</head>
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <section class="background-radial-gradient overflow-hidden">
+    <section class="vh-100 gradient-custom">
+      <div class="container py-5 h-100">
+        <div class="row d-flex justify-content-center align-items-center h-100">
+          <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+            <div class="card bg-dark text-white" style="border-radius: 1rem;">
+              <div class="card-body p-5 text-center">
+                <h2 class="fw-bold mb-4 text-uppercase">Viaggi Effettuati</h2>
+                <div class="table-responsive text-white">
+                  <table class="table table-dark table-striped table-bordered align-middle">
+                    <thead>
+                      <tr>
+                        <th>ID Viaggio</th>
+                        <th>ID Nave</th>
+                        <th>Data Partenza</th>
+                        <th>Data Arrivo</th>
+                        <th>Porto Partenza</th>
+                        <th>Porto Arrivo</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tabellaViaggi">
+                      <tr><td colspan="6">Caricamento dati...</td></tr>
+                    </tbody>
+                  </table>
+                </div>
+
+                <p id="messaggio" class="mt-3"></p>
+              </div>
+            </div>
+            <div class="d-flex justify-content-center mt-4">
+                <button class="btn btn-outline-light btn-lg px-5" onclick="window.location.href='index.html'">Torna alla Home</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </section>
+
+  <script>
+    async function caricaViaggi() {
+      try {
+        const response = await fetch('/gestioneViaggi/tuttiViaggi');
+        if (!response.ok) throw new Error('Errore caricamento dati');
+        const viaggi = await response.json();
+        const tbody = document.getElementById('tabellaViaggi');
+        tbody.innerHTML = '';
+
+        if (viaggi.length === 0) {
+          tbody.innerHTML = '<tr><td colspan="6">Nessun viaggio trovato.</td></tr>';
+          return;
+        }
+
+        viaggi.forEach(v => {
+          const riga = document.createElement('tr');
+          riga.innerHTML = `
+            <td>${v.idViaggio}</td>
+            <td>${v.idNave}</td>
+            <td>${new Date(v.dataPartenza).toLocaleDateString()}</td>
+            <td>${new Date(v.dataArribamento).toLocaleDateString()}</td>
+            <td>${v.portoPartenza.nome} (${v.portoPartenza.nazione})</td>
+            <td>${v.portoArrivo.nome} (${v.portoArrivo.nazione})</td>
+          `;
+          tbody.appendChild(riga);
+        });
+      } catch (e) {
+        document.getElementById('messaggio').textContent = 'Errore nel caricamento dei viaggi.';
+      }
+    }
+
+    caricaViaggi();
+  </script>
+</body>
+</html>
