@@ -6,15 +6,17 @@ public class Cliente
     private String nome;
     private String cognome;
     private String telefono;
+    private String credenziali;
 
     public Cliente() {
     }
 
-    public Cliente(int idCliente, String nome, String cognome, String telefono) {
+    public Cliente(int idCliente, String nome, String cognome, String telefono, String credenziali) {
         this.idCliente = idCliente;
         this.nome = nome;
         this.cognome = cognome;
         this.telefono = telefono;
+        this.credenziali = credenziali;
     }
 
     public int getIdCliente() {
@@ -47,5 +49,13 @@ public class Cliente
 
     public void setTelefono(String telefono) {
         this.telefono = telefono;
+    }
+
+    public String getCredenziali() {
+        return credenziali;
+    }
+
+    public void setCredenziali(String credenziali) {
+        this.credenziali = credenziali;
     }
 }
