@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inserisci Merce</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+    }
+    .btn-black {
+      background-color: #000;
+      color: white;
+      border: 1px solid #444;
+    }
+    .btn-black:hover {
+      background-color: #222;
+    }
+    .form-control, select {
+      background-color: #222;
+      color: white;
+      border: 1px solid #444;
+    }
+    label {
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <h1 class="text-uppercase mb-4">Inserisci Merce</h1>
+    <form id="formMerce">
+      <div class="mb-3">
+        <label for="idMerce" class="form-label">ID Merce</label>
+        <input type="number" class="form-control" id="idMerce" name="idMerce" required />
+      </div>
+      <div class="mb-3">
+        <label for="tipologia" class="form-label">Tipologia</label>
+        <input type="text" class="form-control" id="tipologia" name="tipologia" required />
+      </div>
+      <div class="mb-3">
+        <label for="peso" class="form-label">Peso</label>
+        <input type="number" step="0.01" class="form-control" id="peso" name="peso" required />
+      </div>
+      <div class="mb-3">
+        <label for="volume" class="form-label">Volume</label>
+        <input type="number" step="0.01" class="form-control" id="volume" name="volume" required />
+      </div>
+      <div class="mb-3">
+        <label for="condizioniConservazione" class="form-label">Condizioni di Conservazione</label>
+        <input type="text" class="form-control" id="condizioniConservazione" name="condizioniConservazione" required />
+      </div>
+
+      <div class="mb-3">
+        <label for="polizza" class="form-label">Polizza</label>
+        <select id="polizza" name="polizza" class="form-select" required></select>
+      </div>
+
+      <div class="mb-3">
+        <label for="idPortoCarico" class="form-label">Porto Carico</label>
+        <select id="idPortoCarico" name="idPortoCarico" class="form-select" required></select>
+      </div>
+
+      <div class="mb-3">
+        <label for="idViaggio" class="form-label">Viaggio</label>
+        <select id="idViaggio" name="idViaggio" class="form-select" required></select>
+      </div>
+
+      <div class="mb-3">
+        <label for="idFornitore" class="form-label">ID Fornitore</label>
+        <input type="number" class="form-control" id="idFornitore" name="idFornitore" required />
+      </div>
+
+      <button type="submit" class="btn btn-black">Inserisci Merce</button>
+      <button type="button" class="btn btn-secondary ms-2" onclick="location.href='gestioneMerce.html'">Annulla</button>
+    </form>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const idPolizzaFromUrl = urlParams.get('idPolizza');
+
+    async function loadPolizze() {
+      const res = await fetch('/gestionePolizze/tuttePolizza');
+      const polizze = await res.json();
+      const select = document.getElementById('polizza');
+      select.innerHTML = '';
+
+      polizze.forEach(p => {
+        const option = document.createElement('option');
+        option.value = p.id;
+        option.textContent = `${p.id} - ${p.fornitore} - ${p.destinazione}`;
+        if (p.id == idPolizzaFromUrl) option.selected = true;
+        select.appendChild(option);
+      });
+    }
+
+    async function loadPorti() {
+      const res = await fetch('/gestionePorti/getPorti');
+      const porti = await res.json();
+      const select = document.getElementById('idPortoCarico');
+      select.innerHTML = '';
+
+      porti.forEach(p => {
+        const option = document.createElement('option');
+        option.value = p.id;
+        option.textContent = p.nome;
+        select.appendChild(option);
+      });
+    }
+
+    async function loadViaggi() {
+      const res = await fetch('/gestioneViaggi/tuttiViaggi');
+      const viaggi = await res.json();
+      const select = document.getElementById('idViaggio');
+      select.innerHTML = '';
+
+      viaggi.forEach(v => {
+        const option = document.createElement('option');
+        option.value = v.id;
+        option.textContent = `ID:${v.id} - Nave:${v.idNave} - Partenza:${new Date(v.dataPartenza).toLocaleDateString()}`;
+        select.appendChild(option);
+      });
+    }
+
+    document.getElementById('formMerce').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(e.target);
+
+      const params = new URLSearchParams();
+      params.append('idMerce', data.get('idMerce'));
+      params.append('tipologia', data.get('tipologia'));
+      params.append('peso', data.get('peso'));
+      params.append('volume', data.get('volume'));
+      params.append('condizioniConservazione', data.get('condizioniConservazione'));
+      params.append('franchigiaGiorni', polizzaSelectedFranchigia());
+      params.append('fornitorePolizza', polizzaSelectedFornitore());
+      params.append('destinazione', polizzaSelectedDestinazione());
+      params.append('idPortoCarico', data.get('idPortoCarico'));
+      params.append('idViaggio', data.get('idViaggio'));
+      params.append('idFornitore', data.get('idFornitore'));
+
+      const res = await fetch('/camionista/merce/inserisciMerce', {
+        method: 'POST',
+        body: params,
+      });
+
+      if (res.ok) {
+        alert('Merce inserita con successo');
+        location.href = 'gestioneMerce.html';
+      } else {
+        alert('Errore nell\'inserimento della merce');
+      }
+    });
+
+    function polizzaSelectedFranchigia() {
+      const select = document.getElementById('polizza');
+      const id = select.value;
+      const option = select.options[select.selectedIndex];
+      // Recupera franchigia dal dataset o da polizze caricate
+      return polizzeData.find(p => p.id == id)?.franchigiaGiorni || 0;
+    }
+    function polizzaSelectedFornitore() {
+      const select = document.getElementById('polizza');
+      const id = select.value;
+      return polizzeData.find(p => p.id == id)?.fornitore || '';
+    }
+    function polizzaSelectedDestinazione() {
+      const select = document.getElementById('polizza');
+      const id = select.value;
+      return polizzeData.find(p => p.id == id)?.destinazione || '';
+    }
+
+    let polizzeData = [];
+
+    async function init() {
+      const res = await fetch('/gestionePolizze/tuttePolizza');
+      polizzeData = await res.json();
+      await loadPolizze();
+      await loadPorti();
+      await loadViaggi();
+    }
+
+    init();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
