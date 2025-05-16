@@ -5,9 +5,9 @@ import com.terminal.terminalbackend.database;
 
 public class BuonoConsegnaDB 
 {
-    public void inserisciBuonoConsegna(int idBuono, int idMerce, int idCamionista, String targaCamion, String telefonoCliente, Date dataRitiro, double pesoRitirato) {
+    public void inserisciBuonoConsegna(int idMerce, int idCamionista, String targaCamion, String telefonoCliente, Date dataRitiro, double pesoRitirato) {
         try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) {
-            String sql = "INSERT INTO BuonoConsegna (idBuono, idMerce, idCamionista, targaCamion, telefonoCliente, dataRitiro, pesoRitirato) VALUES (?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO BuonoConsegna (idMerce, idCamionista, targaCamion, telefonoCliente, dataRitiro, pesoRitirato) VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, idBuono);
             stmt.setInt(2, idMerce);
