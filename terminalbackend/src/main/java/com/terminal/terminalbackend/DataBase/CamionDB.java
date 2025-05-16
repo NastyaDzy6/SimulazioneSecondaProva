@@ -21,7 +21,7 @@ public class CamionDB {
         }
     }
 
-    public ArrayList<Camion> getTuttiICamion() 
+    public ArrayList<Camion> getTuttiCamion() 
     {
         ArrayList<Camion> lista = new ArrayList<>();
         try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) {
