@@ -7,15 +7,14 @@ import com.terminal.terminalbackend.database;
 import com.terminal.terminalbackend.Model.Camionista;
 
 public class CamionistaDB {
-     public void inserisciCamionista(int idCamionista, String nome, String cognome, String telefono, int idCamion) {
+     public void inserisciCamionista(String nome, String cognome, String telefono, int idCamion) {
         try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) {
-            String sql = "INSERT INTO Camionista (idCamionista, nome, cognome, telefono, idCamion) VALUES (?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Camionista (nome, cognome, telefono, idCamion) VALUES (?, ?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idCamionista);
-            stmt.setString(2, nome);
-            stmt.setString(3, cognome);
-            stmt.setString(4, telefono);
-            stmt.setInt(5, idCamion);
+            stmt.setString(1, nome);
+            stmt.setString(2, cognome);
+            stmt.setString(3, telefono);
+            stmt.setInt(4, idCamion);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();

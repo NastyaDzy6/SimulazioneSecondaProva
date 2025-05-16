@@ -8,16 +8,15 @@ import com.terminal.terminalbackend.Model.Cliente;
 
 public class ClienteDB 
 {
-    public void inserisciCliente(int idCliente, String nome, String cognome, String telefono) 
+    public void inserisciCliente(String nome, String cognome, String telefono) 
     {
         try (Connection conn = DriverManager.getConnection(database.URL, database.USER, database.PASSWORD)) 
         {
-            String sql = "INSERT INTO Cliente (idCliente, nome, cognome, telefono) VALUES (?, ?, ?, ?)";
+            String sql = "INSERT INTO Cliente (nome, cognome, telefono) VALUES (?, ?, ?)";
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, idCliente);
-            stmt.setString(2, nome);
-            stmt.setString(3, cognome);
-            stmt.setString(4, telefono);
+            stmt.setString(1, nome);
+            stmt.setString(2, cognome);
+            stmt.setString(3, telefono);
             stmt.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
