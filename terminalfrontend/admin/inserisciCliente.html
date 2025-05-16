@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Inserisci Cliente</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+    }
+    .btn-black {
+      background-color: #000;
+      color: white;
+      border: 1px solid #444;
+    }
+    .btn-black:hover {
+      background-color: #222;
+      color: white;
+    }
+    .form-control, label {
+      color: white;
+    }
+    .form-control {
+      background-color: #222;
+      border-color: #444;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5 vh-100 d-flex flex-column justify-content-center">
+    <h2 class="mb-4 text-uppercase text-center">Inserisci Cliente</h2>
+    <form id="formInserisciCliente" class="w-50 mx-auto">
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome</label>
+        <input type="text" id="nome" class="form-control form-control-lg" required />
+      </div>
+      <div class="mb-3">
+        <label for="cognome" class="form-label">Cognome</label>
+        <input type="text" id="cognome" class="form-control form-control-lg" required />
+      </div>
+      <div class="mb-3">
+        <label for="telefono" class="form-label">Telefono</label>
+        <input type="text" id="telefono" class="form-control form-control-lg" required />
+      </div>
+      <div class="d-flex justify-content-between">
+        <button type="button" class="btn btn-outline-light btn-lg px-4" onclick="tornaIndietro()">Annulla</button>
+        <button type="submit" class="btn btn-black btn-lg px-4">Inserisci</button>
+      </div>
+      <p id="messaggio" class="mt-3 text-center"></p>
+    </form>
+  </div>
+
+  <script>
+    const form = document.getElementById('formInserisciCliente');
+    const messaggio = document.getElementById('messaggio');
+
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const cognome = document.getElementById('cognome').value.trim();
+      const telefono = document.getElementById('telefono').value.trim();
+
+      if (!nome || !cognome || !telefono) {
+        messaggio.textContent = 'Compila tutti i campi';
+        return;
+      }
+
+      const url = `http://localhost:8080/gestioneClienti/inserisciCliente?nome=${encodeURIComponent(nome)}&cognome=${encodeURIComponent(cognome)}&telefono=${encodeURIComponent(telefono)}`;
+
+      fetch(url)
+        .then(res => res.text())
+        .then(r => {
+          if (r === 'OK') {
+            messaggio.style.color = 'lightgreen';
+            messaggio.textContent = 'Cliente inserito con successo, torniamo indietro...';
+            setTimeout(() => {
+              window.location.href = 'gestioneClienti.html';
+            }, 1500);
+          } else {
+            messaggio.style.color = 'red';
+            messaggio.textContent = 'Errore nell\'inserimento';
+          }
+        })
+        .catch(() => {
+          messaggio.style.color = 'red';
+          messaggio.textContent = 'Errore di connessione al server';
+        });
+    });
+
+    function tornaIndietro() {
+      window.location.href = 'gestioneClienti.html';
+    }
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

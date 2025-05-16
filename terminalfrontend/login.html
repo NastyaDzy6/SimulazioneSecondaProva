@@ -15,10 +15,10 @@
       if (utenteJSON) {
         const utente = JSON.parse(utenteJSON);
         const redirectMap = {
-          "Camionista": "paginaIniziale.html",
-          "Cliente": "paginaIniziale.html",
-          "Fornitore": "paginaIniziale.html",
-          "Admin": "paginaIniziale.html"
+          "Camionista": "paginaInizialeCamionista.html",
+          "Cliente": "paginaInizialeCliente.html",
+          "Fornitore": "paginaInizialeFornitore.html",
+          "Admin": "paginaInizialeAdmin.html"
         };
 
         const redirectURL = redirectMap[utente.ruolo];

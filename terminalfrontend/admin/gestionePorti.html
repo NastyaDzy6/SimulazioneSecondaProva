@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gestione Porti</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+    }
+    .btn-black {
+      background-color: #000;
+      color: white;
+      border: 1px solid #444;
+    }
+    .btn-black:hover {
+      background-color: #222;
+      color: white;
+    }
+    table {
+      color: white;
+    }
+    .btn-danger {
+      background-color: #800000;
+      border: none;
+    }
+    .btn-danger:hover {
+      background-color: #a00000;
+    }
+  </style>
+</head>
+<body>
+  <div class="container py-5">
+    <h2 class="text-uppercase mb-4 text-center">Gestione Porti</h2>
+    <div class="mb-3 d-flex justify-content-end">
+      <button class="btn btn-black btn-lg" onclick="window.location.href='inserisciPorto.html'">Inserisci Porto</button>
+    </div>
+    <table class="table table-dark table-striped table-hover align-middle">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Nome</th>
+          <th>Nazione</th>
+          <th>Linea</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody id="tabellaPorti">
+      </tbody>
+    </table>
+    <p id="messaggio" class="text-center"></p>
+  </div>
+
+  <script>
+    async function caricaPorti() {
+      try {
+        const res = await fetch('http://localhost:8080/gestionePorti/getPorti');
+        const porti = await res.json();
+
+        const tbody = document.getElementById('tabellaPorti');
+        tbody.innerHTML = '';
+        porti.forEach(p => {
+          const tr = document.createElement('tr');
+
+          tr.innerHTML = `
+            <td>${p.id}</td>
+            <td>${p.nome}</td>
+            <td>${p.nazione}</td>
+            <td>${p.linea}</td>
+            <td>
+              ${p.id !== 1 ? `<button class="btn btn-danger btn-sm" onclick="eliminaPorto(${p.id})">Elimina</button>` : ''}
+            </td>
+          `;
+          tbody.appendChild(tr);
+        });
+      } catch (e) {
+        document.getElementById('messaggio').style.color = 'red';
+        document.getElementById('messaggio').textContent = 'Errore caricamento porti';
+      }
+    }
+
+    async function eliminaPorto(id) {
+      if (!confirm('Sei sicuro di voler eliminare questo porto?')) return;
+      try {
+        const res = await fetch(`http://localhost:8080/gestionePorti/eliminaPorto?id=${id}`);
+        const text = await res.text();
+        if (text === 'OK') {
+          document.getElementById('messaggio').style.color = 'lightgreen';
+          document.getElementById('messaggio').textContent = 'Porto eliminato';
+          caricaPorti();
+        } else {
+          document.getElementById('messaggio').style.color = 'red';
+          document.getElementById('messaggio').textContent = 'Impossibile eliminare questo porto';
+        }
+      } catch {
+        document.getElementById('messaggio').style.color = 'red';
+        document.getElementById('messaggio').textContent = 'Errore di connessione al server';
+      }
+    }
+
+    window.onload = caricaPorti;
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
