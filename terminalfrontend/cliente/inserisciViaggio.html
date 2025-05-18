@@ -24,6 +24,20 @@
       border: 1px solid #444;
     }
   </style>
+  <script>
+    window.onload = function() {
+        const utenteJSON = sessionStorage.getItem("utente");
+        if (!utenteJSON) {
+            window.location.href = "login.html"; 
+            return;
+        }
+        const utente = JSON.parse(utenteJSON);
+        if (utente.ruolo !== "Cliente") { 
+            alert("Accesso negato: ruolo non autorizzato.");
+            window.location.href = "login.html"; 
+        }
+    }
+  </script>
 </head>
 <body>
   <div class="container py-5">
