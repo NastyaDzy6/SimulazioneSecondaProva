@@ -175,7 +175,6 @@
       const select = document.getElementById('polizza');
       const id = select.value;
       const option = select.options[select.selectedIndex];
-      // Recupera franchigia dal dataset o da polizze caricate
       return polizzeData.find(p => p.id == id)?.franchigiaGiorni || 0;
     }
     function polizzaSelectedFornitore() {
